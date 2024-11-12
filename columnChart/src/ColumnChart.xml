@@ -8,9 +8,40 @@
     <icon/>
     <properties>
         <propertyGroup caption="General">
-            <property key="sampleText" type="string" required="false">
-                <caption>Default value</caption>
-                <description>Sample text input</description>
+            <property key="dataList" type="datasource" isList="true" required="false">
+                <caption>Datasource</caption>
+                <description>Select the series you want to insert in the chart</description>
+            </property>
+            <property key="category" type="attribute" required="false" dataSource="dataList">
+                <caption>Category attribute</caption>
+                <description>The attribute of the x-axis of the chart</description>
+                <attributeTypes>
+                    <attributeType name="String"/>
+                </attributeTypes>
+            </property>
+            <property key="value" type="attribute" required="false" dataSource="dataList">
+                <caption>Value attribute</caption>
+                <description>The attribute of the y-axis of the chart</description>
+                <attributeTypes>
+                    <attributeType name="Integer"/>
+                    <attributeType name="Long"/>
+                </attributeTypes>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Chart View Settings">
+            <property key="widthChart" type="integer" defaultValue="500">
+                <caption>Width in px</caption>
+                <description>Select the width in px</description>
+            </property>
+            <property key="heightChart" type="integer" defaultValue="500">
+                <caption>Height in px</caption>
+                <description>Select the height in px</description>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Actions">
+            <property key="columnClick" type="action">
+                <caption>On Click Column Action</caption>
+                <description>Define what to do when clicking on a column of the chart</description>
             </property>
         </propertyGroup>
     </properties>

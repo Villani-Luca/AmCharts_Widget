@@ -4,13 +4,20 @@
  * @author Mendix Widgets Framework Team
  */
 import { CSSProperties } from "react";
+import { ActionValue, ListValue, ListAttributeValue } from "mendix";
+import { Big } from "big.js";
 
 export interface ColumnChartContainerProps {
     name: string;
     class: string;
     style?: CSSProperties;
     tabIndex?: number;
-    sampleText: string;
+    dataList?: ListValue;
+    category?: ListAttributeValue<string>;
+    value?: ListAttributeValue<Big>;
+    widthChart: number;
+    heightChart: number;
+    columnClick?: ActionValue;
 }
 
 export interface ColumnChartPreviewProps {
@@ -23,5 +30,10 @@ export interface ColumnChartPreviewProps {
     styleObject?: CSSProperties;
     readOnly: boolean;
     renderMode?: "design" | "xray" | "structure";
-    sampleText: string;
+    dataList: {} | { caption: string } | { type: string } | null;
+    category: string;
+    value: string;
+    widthChart: number | null;
+    heightChart: number | null;
+    columnClick: {} | null;
 }
