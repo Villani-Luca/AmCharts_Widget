@@ -17,9 +17,8 @@ export function ColumnChart(props: ColumnChartContainerProps): ReactElement {
         let tmp={} as DataJson;
         tmp.category = props.category?.get(item).value;
         tmp.value = props.value?.get(item).value?.toNumber();
-
         dataArray.push(tmp);
-    })
+    });
     
-    return <Chart dataJson={dataArray}/>;
+    return <Chart props={props} dataJson={dataArray} chartHeight={props.heightChart} chartWidth={props.widthChart}/>;
 }

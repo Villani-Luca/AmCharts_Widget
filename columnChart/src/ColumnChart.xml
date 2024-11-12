@@ -39,7 +39,7 @@
             </property>
         </propertyGroup>
         <propertyGroup caption="Actions">
-            <property key="columnClick" type="action">
+            <property key="columnClick" type="action" dataSource="dataList">
                 <caption>On Click Column Action</caption>
                 <description>Define what to do when clicking on a column of the chart</description>
             </property>

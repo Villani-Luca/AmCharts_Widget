@@ -4,7 +4,7 @@
  * @author Mendix Widgets Framework Team
  */
 import { CSSProperties } from "react";
-import { ActionValue, ListValue, ListAttributeValue } from "mendix";
+import { ListValue, ListActionValue, ListAttributeValue } from "mendix";
 import { Big } from "big.js";
 
 export interface ColumnChartContainerProps {
@@ -17,7 +17,7 @@ export interface ColumnChartContainerProps {
     value?: ListAttributeValue<Big>;
     widthChart: number;
     heightChart: number;
-    columnClick?: ActionValue;
+    columnClick?: ListActionValue;
 }
 
 export interface ColumnChartPreviewProps {
