@@ -4,8 +4,16 @@
  * @author Mendix Widgets Framework Team
  */
 import { CSSProperties } from "react";
-import { ListValue, ListActionValue, ListAttributeValue } from "mendix";
+import { DynamicValue, ListValue, ListActionValue, ListAttributeValue } from "mendix";
 import { Big } from "big.js";
+
+export type WidthDimensionEnum = "px" | "perc";
+
+export type HeightDimensionEnum = "px" | "perc";
+
+export type LabelOrientationEnum = "Orizzontal" | "Vertical";
+
+export type LabelAlignEnum = "start" | "end" | "left" | "center" | "right";
 
 export interface ColumnChartContainerProps {
     name: string;
@@ -15,8 +23,16 @@ export interface ColumnChartContainerProps {
     dataList?: ListValue;
     category?: ListAttributeValue<string>;
     value?: ListAttributeValue<Big>;
+    widthDimension: WidthDimensionEnum;
     widthChart: number;
+    heightDimension: HeightDimensionEnum;
     heightChart: number;
+    columnColor: DynamicValue<string>;
+    strokeColor: DynamicValue<string>;
+    labelColor: DynamicValue<string>;
+    labelOrientation: LabelOrientationEnum;
+    labelAlign: LabelAlignEnum;
+    tooltipActivation: boolean;
     columnClick?: ListActionValue;
 }
 
@@ -33,7 +49,15 @@ export interface ColumnChartPreviewProps {
     dataList: {} | { caption: string } | { type: string } | null;
     category: string;
     value: string;
+    widthDimension: WidthDimensionEnum;
     widthChart: number | null;
+    heightDimension: HeightDimensionEnum;
     heightChart: number | null;
+    columnColor: string;
+    strokeColor: string;
+    labelColor: string;
+    labelOrientation: LabelOrientationEnum;
+    labelAlign: LabelAlignEnum;
+    tooltipActivation: boolean;
     columnClick: {} | null;
 }
