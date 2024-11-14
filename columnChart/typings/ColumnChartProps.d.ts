@@ -29,7 +29,8 @@ export interface ColumnChartContainerProps {
     heightChart: number;
     columnColor: DynamicValue<string>;
     strokeColor: DynamicValue<string>;
-    labelColor: DynamicValue<string>;
+    labelColorX: DynamicValue<string>;
+    labelColorY: DynamicValue<string>;
     labelOrientation: LabelOrientationEnum;
     labelAlign: LabelAlignEnum;
     tooltipActivation: boolean;
@@ -55,7 +56,8 @@ export interface ColumnChartPreviewProps {
     heightChart: number | null;
     columnColor: string;
     strokeColor: string;
-    labelColor: string;
+    labelColorX: string;
+    labelColorY: string;
     labelOrientation: LabelOrientationEnum;
     labelAlign: LabelAlignEnum;
     tooltipActivation: boolean;

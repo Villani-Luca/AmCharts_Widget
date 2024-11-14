@@ -63,9 +63,14 @@
                 <description>Define the color of the strokes of the columns</description>
                 <returnType type="String"/>
             </property>
-            <property key="labelColor" type="expression">
-                <caption>Labels color</caption>
-                <description>Define the color of the labels</description>
+            <property key="labelColorX" type="expression">
+                <caption>Labels X Axis color</caption>
+                <description>Define the color of the labels on X axis</description>
+                <returnType type="String"/>
+            </property>
+            <property key="labelColorY" type="expression">
+                <caption>Labels Y Axis color</caption>
+                <description>Define the color of the labels on Y axis</description>
                 <returnType type="String"/>
             </property>
             <property key="labelOrientation" type="enumeration" defaultValue="Orizzontal">

@@ -16,13 +16,13 @@ export interface ChartInputProps {
     chartHeight: number
 }
 
-type LabelSettings={
+type LabelSettings = {
     rotationLabel: number | undefined,
     alignLabel: alignLabel,
     colorLabel: am5.Color | undefined
 }
 
-enum alignLabel{
+enum alignLabel {
     start = "start",
     end = "end",
     left = "left",
@@ -41,7 +41,13 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
 
         let chart = root.container.children.push(
             am5xy.XYChart.new(root, {
-                panY: false,
+                panX: true,
+                panY: true,
+                wheelX: "panX",
+                wheelY: "zoomX",
+                pinchZoomX: true,
+                paddingLeft: 0,
+                paddingRight: 1,
                 layout: root.verticalLayout
             })
         );
@@ -51,6 +57,10 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
         var yRenderer = am5xy.AxisRendererY.new(root, {
             strokeOpacity: 0,
         })
+        yRenderer.labels.template.setAll({
+            fill: am5.color(props.labelColorY.value?.toString()!),
+        });
+
 
         // Create Y-axis
         let yAxis = chart.yAxes.push(
@@ -68,21 +78,21 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
             strokeOpacity: 0,
         });
 
-        let labelSetting: LabelSettings={rotationLabel:0, alignLabel:alignLabel.center, colorLabel: am5.color(props.labelColor.value?.toString()!)};
-        switch(props.labelOrientation){
-            case 'Orizzontal':{
-                labelSetting={
-                    rotationLabel:0,
+        let labelSetting: LabelSettings = { rotationLabel: 0, alignLabel: alignLabel.center, colorLabel: am5.color(props.labelColorX.value?.toString()!) };
+        switch (props.labelOrientation) {
+            case 'Orizzontal': {
+                labelSetting = {
+                    rotationLabel: 0,
                     alignLabel: alignLabel.center,
-                    colorLabel: am5.color(props.labelColor.value?.toString()!)
+                    colorLabel: am5.color(props.labelColorX.value?.toString()!)
                 };
                 break;
             }
-            case 'Vertical':{
-                labelSetting={
-                    rotationLabel:-90,
-                    alignLabel:alignLabel.center,
-                    colorLabel: am5.color(props.labelColor.value?.toString()!)
+            case 'Vertical': {
+                labelSetting = {
+                    rotationLabel: -90,
+                    alignLabel: alignLabel.center,
+                    colorLabel: am5.color(props.labelColorX.value?.toString()!)
                 };
                 break;
             }
@@ -90,31 +100,31 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
                 break;
         }
 
-        switch(props.labelAlign){
-            case 'start':{
-                labelSetting.alignLabel= alignLabel.start
+        switch (props.labelAlign) {
+            case 'start': {
+                labelSetting.alignLabel = alignLabel.start
                 break;
             }
-            case 'end':{
-                labelSetting.alignLabel= alignLabel.end
+            case 'end': {
+                labelSetting.alignLabel = alignLabel.end
                 break;
             }
-            case 'left':{
-                labelSetting.alignLabel= alignLabel.left
+            case 'left': {
+                labelSetting.alignLabel = alignLabel.left
                 break;
             }
-            case 'center':{
-                labelSetting.alignLabel= alignLabel.center
+            case 'center': {
+                labelSetting.alignLabel = alignLabel.center
                 break;
             }
-            case 'right':{
-                labelSetting.alignLabel= alignLabel.right
+            case 'right': {
+                labelSetting.alignLabel = alignLabel.right
                 break;
             }
             default:
                 break;
         }
-        
+
         xRenderer.labels.template.setAll({
             textAlign: labelSetting.alignLabel,
             fill: labelSetting.colorLabel,
@@ -157,7 +167,25 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
         );
 
 
-        series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5, strokeOpacity: 0 });
+        series.columns.template.setAll({
+            cornerRadiusTL: 25,
+            cornerRadiusTR: 25,
+            strokeOpacity: 0,
+            shadowOpacity: 0.1,
+            shadowOffsetX: 2,
+            shadowOffsetY: 2,
+            shadowBlur: 1,
+            strokeWidth: 2,
+            stroke: am5.color(0xffffff),
+            shadowColor: am5.color(0x000000)
+        });
+
+        series.columns.template.states.create("hover", {
+            shadowOpacity: 1,
+            shadowBlur: 10,
+            cornerRadiusTL: 5,
+            cornerRadiusTR: 5
+          })
 
         series.columns.template.events.on("click", function (event) {
             const column_clicked = event.target.dataItem?.dataContext as DataJson;
@@ -168,7 +196,7 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
         // Add legend
         // let legend = chart.children.push(am5.Legend.new(root, {}));
         // legend.data.setAll(chart.series.values);
-        
+
 
         // Add cursor
         let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
@@ -179,36 +207,36 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
             root.dispose();
         };
     }, []);
-    
-    var width: string =chartWidth.toString();
-    switch(props.widthDimension){
-        case 'px':{
+
+    var width: string = chartWidth.toString();
+    switch (props.widthDimension) {
+        case 'px': {
             width += "px";
             break;
         }
-        case 'perc':{
+        case 'perc': {
             width += "%";
             break;
         }
-        default:{
+        default: {
             break;
         }
-        
+
     }
-    var height: string =chartHeight.toString();
-    switch(props.heightDimension){
-        case 'px':{
+    var height: string = chartHeight.toString();
+    switch (props.heightDimension) {
+        case 'px': {
             height += "px";
             break;
         }
-        case 'perc':{
+        case 'perc': {
             height += "%";
             break;
         }
-        default:{
+        default: {
             break;
         }
-        
+
     }
     return (
         <div id="chartdiv" style={{ width: width, height: height }}></div>
