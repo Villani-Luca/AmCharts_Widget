@@ -23,6 +23,7 @@ export interface ColumnChartContainerProps {
     dataList?: ListValue;
     category?: ListAttributeValue<string>;
     value?: ListAttributeValue<Big>;
+    nameChart: string;
     widthDimension: WidthDimensionEnum;
     widthChart: number;
     heightDimension: HeightDimensionEnum;
@@ -50,6 +51,7 @@ export interface ColumnChartPreviewProps {
     dataList: {} | { caption: string } | { type: string } | null;
     category: string;
     value: string;
+    nameChart: string;
     widthDimension: WidthDimensionEnum;
     widthChart: number | null;
     heightDimension: HeightDimensionEnum;

@@ -1,4 +1,4 @@
-import { createElement, ReactElement, useLayoutEffect } from 'react';
+import { createElement, ReactElement, useEffect } from 'react';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
@@ -29,20 +29,14 @@ enum alignLabel {
     center = "center",
     right = "right"
 }
-function maybeDisposeRoot(divId:string) {
-    am5.array.each(am5.registry.rootElements, function (root) {
-      if (root.dom.id == divId) {
-        root.dispose();
-      }
-    });
-  };
-
 function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): ReactElement {
-    useLayoutEffect(() => {
-
-        maybeDisposeRoot("chartdiv");
+    
+    let nameChart=  Math.random().toString(36).slice(2);
+    useEffect(() => {
+        //maybeDisposeRoot(nameChart);
         
-        let root = am5.Root.new("chartdiv");
+    
+        let root = am5.Root.new(nameChart);
         console.log(dataJson);
         root.setThemes([
             am5themes_Animated.new(root)
@@ -54,7 +48,7 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
                 panY: true,
                 wheelX: "panX",
                 wheelY: "zoomX",
-                pinchZoomX: true,
+                pinchZoomX: false,
                 paddingLeft: 0,
                 paddingRight: 1,
                 layout: root.verticalLayout
@@ -177,8 +171,8 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
 
 
         series.columns.template.setAll({
-            cornerRadiusTL: 25,
-            cornerRadiusTR: 25,
+            cornerRadiusTL: 5,
+            cornerRadiusTR: 5,
             strokeOpacity: 0,
             shadowOpacity: 0.1,
             shadowOffsetX: 2,
@@ -186,7 +180,8 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
             shadowBlur: 1,
             strokeWidth: 2,
             stroke: am5.color(0xffffff),
-            shadowColor: am5.color(0x000000)
+            shadowColor: am5.color(0x000000),
+            cursorOverStyle: "pointer"
         });
 
         series.columns.template.states.create("hover", {
@@ -208,14 +203,12 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
 
 
         // Add cursor
-        let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+        let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {behavior: "zoomX"}));
         cursor.lineY.set("visible", false);
         cursor.lineX.set("visible", false);
 
-        return () => {
-            root.dispose();
-        };
-    }, []);
+          
+    });
 
     var width: string = chartWidth.toString();
     switch (props.widthDimension) {
@@ -248,7 +241,7 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
 
     }
     return (
-        <div id="chartdiv" style={{ width: width, height: height }}></div>
+        <div id={nameChart} style={{ width: width, height: height }}></div>
     );
 }
 export default Chart;

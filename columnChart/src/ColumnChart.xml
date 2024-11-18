@@ -27,6 +27,10 @@
                     <attributeType name="Long"/>
                 </attributeTypes>
             </property>
+            <property key="nameChart" type="string" required="true">
+                <caption>Chart Name</caption>
+                <description>Describes the Chart Name</description>
+            </property>
         </propertyGroup>
         <propertyGroup caption="Chart View Settings">
             <property key="widthDimension" type="enumeration" defaultValue="px">
