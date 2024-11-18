@@ -29,10 +29,19 @@ enum alignLabel {
     center = "center",
     right = "right"
 }
-
+function maybeDisposeRoot(divId:string) {
+    am5.array.each(am5.registry.rootElements, function (root) {
+      if (root.dom.id == divId) {
+        root.dispose();
+      }
+    });
+  };
 
 function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): ReactElement {
     useLayoutEffect(() => {
+
+        maybeDisposeRoot("chartdiv");
+        
         let root = am5.Root.new("chartdiv");
         console.log(dataJson);
         root.setThemes([
