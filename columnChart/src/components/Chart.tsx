@@ -206,9 +206,10 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
         let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {behavior: "zoomX"}));
         cursor.lineY.set("visible", false);
         cursor.lineX.set("visible", false);
+        
 
-          
-    });
+    return () => {root.dispose();};
+}, []);
 
     var width: string = chartWidth.toString();
     switch (props.widthDimension) {
