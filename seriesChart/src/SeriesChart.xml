@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="netribe ultra s.r.l.serieschart.SeriesChart" pluginWidget="true" needsEntityContext="true" offlineCapable="true" supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>Series Chart</name>
+    <description>Series Chart in REACT done with AM Charts Library</description>
+    <icon/>
+    <properties>
+        <propertyGroup caption="General">
+            <property key="seriesList" type="object" isList="true" required="true">
+                <caption>Series List</caption>
+                <description>Create the series you want to insert in the chart</description>
+                <properties>
+                    <propertyGroup caption="Serie Definition">
+                        <property key="dataList" type="datasource" isList="true">
+                            <caption>Datasource</caption>
+                            <description>Select the series you want to insert in the chart</description>
+                        </property>
+                        <property key="category" type="attribute" required="false" dataSource="dataList">
+                            <caption>Category attribute</caption>
+                            <description>The attribute of the x-axis of the chart</description>
+                            <attributeTypes>
+                                <attributeType name="String"/>
+                            </attributeTypes>
+                        </property>
+                        <property key="value" type="attribute" required="false" dataSource="dataList">
+                            <caption>Value attribute</caption>
+                            <description>The attribute of the y-axis of the chart</description>
+                            <attributeTypes>
+                                <attributeType name="Integer"/>
+                                <attributeType name="Long"/>
+                            </attributeTypes>
+                        </property>
+                        <property key="seriesName" type="expression" required="true" defaultValue="'Series'">
+                            <caption>Name of the series</caption>
+                            <description>The name of the series in the chart</description>
+                            <returnType type="String"/>
+                        </property>
+                    </propertyGroup>
+                </properties>
+            </property>
+            <property key="nameChart" type="string" required="true">
+                <caption>Chart Name</caption>
+                <description>Describes the Chart Name</description>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Chart View Settings">
+            <property key="widthDimension" type="enumeration" defaultValue="px">
+                <caption>Width Type Dimension</caption>
+                <description>Define the dimension of the Width</description>
+                <enumerationValues>
+                    <enumerationValue key="px">Pixels</enumerationValue>
+                    <enumerationValue key="perc">Percentage</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="widthChart" type="integer" defaultValue="500">
+                <caption>Width points</caption>
+                <description>Select the width points based on previous selection</description>
+            </property>
+            <property key="heightDimension" type="enumeration" defaultValue="px">
+                <caption>Height Type Dimension</caption>
+                <description>Define the dimension of the Height</description>
+                <enumerationValues>
+                    <enumerationValue key="px">Pixels</enumerationValue>
+                    <enumerationValue key="perc">Percentage</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="heightChart" type="integer" defaultValue="500">
+                <caption>Height points</caption>
+                <description>Select the height points based on previous selection</description>
+            </property>
+            <property key="columnColor" type="expression">
+                <caption>Column color</caption>
+                <description>Define the color of the columns</description>
+                <returnType type="String"/>
+            </property>
+            <property key="strokeColor" type="expression">
+                <caption>Stroke color</caption>
+                <description>Define the color of the strokes of the columns</description>
+                <returnType type="String"/>
+            </property>
+            <property key="labelColorX" type="expression">
+                <caption>Labels X Axis color</caption>
+                <description>Define the color of the labels on X axis</description>
+                <returnType type="String"/>
+            </property>
+            <property key="labelColorY" type="expression">
+                <caption>Labels Y Axis color</caption>
+                <description>Define the color of the labels on Y axis</description>
+                <returnType type="String"/>
+            </property>
+            <property key="labelOrientation" type="enumeration" defaultValue="Orizzontal">
+                <caption>Label Orientation</caption>
+                <description>Define the orientation of the label</description>
+                <enumerationValues>
+                    <enumerationValue key="Orizzontal">Orizzontal</enumerationValue>
+                    <enumerationValue key="Vertical">Vertical</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="labelAlign" type="enumeration" defaultValue="center">
+                <caption>Label Align</caption>
+                <description>Define the alignment of the label</description>
+                <enumerationValues>
+                    <enumerationValue key="start">Start</enumerationValue>
+                    <enumerationValue key="end">End</enumerationValue>
+                    <enumerationValue key="left">Left</enumerationValue>
+                    <enumerationValue key="center">Center</enumerationValue>
+                    <enumerationValue key="right">Right</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="tooltipActivation" type="boolean" defaultValue="true">
+                <caption>Tooltip</caption>
+                <description>Define if the tooltip has to shown on the columns</description>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Actions">
+            <property key="columnClick" type="action" dataSource="dataList">
+                <caption>On Click Column Action</caption>
+                <description>Define what to do when clicking on a column of the chart</description>
+            </property>
+        </propertyGroup>
+    </properties>
+</widget>
