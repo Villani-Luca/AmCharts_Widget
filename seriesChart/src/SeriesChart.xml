@@ -37,6 +37,12 @@
                             <returnType type="String"/>
                         </property>
                     </propertyGroup>
+                    <propertyGroup caption="Actions">
+                        <property key="columnClick" type="action" dataSource="dataList">
+                            <caption>On Click Column Action</caption>
+                            <description>Define what to do when clicking on a column of the chart</description>
+                        </property>
+                    </propertyGroup>
                 </properties>
             </property>
             <property key="nameChart" type="string" required="true">
@@ -108,16 +114,7 @@
                     <enumerationValue key="right">Right</enumerationValue>
                 </enumerationValues>
             </property>
-            <property key="tooltipActivation" type="boolean" defaultValue="true">
-                <caption>Tooltip</caption>
-                <description>Define if the tooltip has to shown on the columns</description>
-            </property>
         </propertyGroup>
-        <propertyGroup caption="Actions">
-            <property key="columnClick" type="action" dataSource="dataList">
-                <caption>On Click Column Action</caption>
-                <description>Define what to do when clicking on a column of the chart</description>
-            </property>
-        </propertyGroup>
+        
     </properties>
 </widget>

@@ -12,6 +12,7 @@ export interface SeriesListType {
     category?: ListAttributeValue<string>;
     value?: ListAttributeValue<Big>;
     seriesName: DynamicValue<string>;
+    columnClick?: ListActionValue;
 }
 
 export type WidthDimensionEnum = "px" | "perc";
@@ -27,6 +28,7 @@ export interface SeriesListPreviewType {
     category: string;
     value: string;
     seriesName: string;
+    columnClick: {} | null;
 }
 
 export interface SeriesChartContainerProps {
@@ -46,8 +48,6 @@ export interface SeriesChartContainerProps {
     labelColorY: DynamicValue<string>;
     labelOrientation: LabelOrientationEnum;
     labelAlign: LabelAlignEnum;
-    tooltipActivation: boolean;
-    columnClick?: ListActionValue;
 }
 
 export interface SeriesChartPreviewProps {
@@ -72,6 +72,4 @@ export interface SeriesChartPreviewProps {
     labelColorY: string;
     labelOrientation: LabelOrientationEnum;
     labelAlign: LabelAlignEnum;
-    tooltipActivation: boolean;
-    columnClick: {} | null;
 }

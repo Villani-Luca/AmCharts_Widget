@@ -29,6 +29,7 @@
     "@types/big.js": "^6.0.2"
   },
   "dependencies": {
+    "@amcharts/amcharts5": "^5.10.7",
     "classnames": "^2.2.6"
   },
   "resolutions": {

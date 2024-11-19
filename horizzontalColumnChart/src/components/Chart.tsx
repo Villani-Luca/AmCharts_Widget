@@ -46,8 +46,8 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
             am5xy.XYChart.new(root, {
                 panX: true,
                 panY: true,
-                wheelX: "panX",
-                wheelY: "zoomX",
+                wheelX: "panY",
+                wheelY: "zoomY",
                 pinchZoomX: false,
                 paddingLeft: 0,
                 paddingRight: 1,
@@ -175,7 +175,7 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
 
         series.columns.template.setAll({
             cornerRadiusBR: 5,
-            cornerRadiusBL: 5,
+            cornerRadiusTR: 5,
             strokeOpacity: 0,
             shadowOpacity: 0.1,
             shadowOffsetX: 2,
@@ -190,7 +190,7 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
         series.columns.template.states.create("hover", {
             shadowOpacity: 1,
             shadowBlur: 10,
-            cornerRadiusBL: 5,
+            cornerRadiusTR: 5,
             cornerRadiusBR: 5
         })
 
