@@ -100,6 +100,10 @@
                 <caption>Tooltip</caption>
                 <description>Define if the tooltip has to shown on the columns</description>
             </property>
+            <property key="sliderActivation" type="boolean" defaultValue="false">
+                <caption>Slider Zoom</caption>
+                <description>Define if the slider of the zoom has to shown above the columns</description>
+            </property>
         </propertyGroup>
         <propertyGroup caption="Actions">
             <property key="columnClick" type="action" dataSource="dataList">

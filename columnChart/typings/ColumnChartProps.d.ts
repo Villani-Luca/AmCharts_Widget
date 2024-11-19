@@ -35,6 +35,7 @@ export interface ColumnChartContainerProps {
     labelOrientation: LabelOrientationEnum;
     labelAlign: LabelAlignEnum;
     tooltipActivation: boolean;
+    sliderActivation: boolean;
     columnClick?: ListActionValue;
 }
 
@@ -63,5 +64,6 @@ export interface ColumnChartPreviewProps {
     labelOrientation: LabelOrientationEnum;
     labelAlign: LabelAlignEnum;
     tooltipActivation: boolean;
+    sliderActivation: boolean;
     columnClick: {} | null;
 }

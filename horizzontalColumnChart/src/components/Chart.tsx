@@ -222,7 +222,7 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
 
 
         // Add cursor
-        let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {behavior: "zoomX"}));
+        let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {behavior: "zoomY"}));
         cursor.lineY.set("visible", false);
         cursor.lineX.set("visible", false);
         

@@ -12,6 +12,8 @@ export interface SeriesListType {
     category?: ListAttributeValue<string>;
     value?: ListAttributeValue<Big>;
     seriesName: DynamicValue<string>;
+    columnColor: DynamicValue<string>;
+    strokeColor: DynamicValue<string>;
     columnClick?: ListActionValue;
 }
 
@@ -23,11 +25,15 @@ export type LabelOrientationEnum = "Orizzontal" | "Vertical";
 
 export type LabelAlignEnum = "start" | "end" | "left" | "center" | "right";
 
+export type LegendPositionEnum = "UpperLeft" | "UpperCenter" | "UpperRight" | "MiddleRight" | "MiddleLeft" | "BottomLeft" | "BottomCenter" | "BottomRight";
+
 export interface SeriesListPreviewType {
     dataList: {} | { caption: string } | { type: string } | null;
     category: string;
     value: string;
     seriesName: string;
+    columnColor: string;
+    strokeColor: string;
     columnClick: {} | null;
 }
 
@@ -42,12 +48,12 @@ export interface SeriesChartContainerProps {
     widthChart: number;
     heightDimension: HeightDimensionEnum;
     heightChart: number;
-    columnColor: DynamicValue<string>;
-    strokeColor: DynamicValue<string>;
     labelColorX: DynamicValue<string>;
     labelColorY: DynamicValue<string>;
     labelOrientation: LabelOrientationEnum;
     labelAlign: LabelAlignEnum;
+    tooltipActivation: boolean;
+    legendPosition: LegendPositionEnum;
 }
 
 export interface SeriesChartPreviewProps {
@@ -66,10 +72,10 @@ export interface SeriesChartPreviewProps {
     widthChart: number | null;
     heightDimension: HeightDimensionEnum;
     heightChart: number | null;
-    columnColor: string;
-    strokeColor: string;
     labelColorX: string;
     labelColorY: string;
     labelOrientation: LabelOrientationEnum;
     labelAlign: LabelAlignEnum;
+    tooltipActivation: boolean;
+    legendPosition: LegendPositionEnum;
 }

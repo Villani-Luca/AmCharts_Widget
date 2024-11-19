@@ -16,7 +16,7 @@ export function SeriesChart(props: SeriesChartContainerProps): ReactElement {
 
     for(const series of seriesList){
         const name = series.seriesName.value?.toString()!;
-        seriesname.push({name: name, displayname: name});
+        seriesname.push({name: name, displayname: name, color: series.columnColor.value?.toString()!, strokeColor: series.strokeColor.value?.toString()!});
         for(const datapoint of series.dataList.items ?? []){
             const value = series.value?.get(datapoint).value?.toNumber();
             const category = series.category?.get(datapoint).value?.toString();

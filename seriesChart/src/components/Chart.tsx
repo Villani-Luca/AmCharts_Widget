@@ -1,15 +1,19 @@
-                 // @ts-nocheck
 import { createElement, ReactElement, useEffect } from 'react';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { SeriesChartContainerProps } from 'typings/SeriesChartProps';
 
-export type DataJson = Record<string, number | string>;
+export type DataJson = { category: string; } & Record<string, number | string>;
 
 export interface ChartInputProps {
     props: SeriesChartContainerProps,
-    series: {name: string, displayname: string}[]
+    series: {
+        name: string,
+        displayname: string,
+        color: string,
+        strokeColor: string,
+    }[],
     dataJson: Array<DataJson>,
     chartWidth: number,
     chartHeight: number
@@ -28,10 +32,100 @@ enum alignLabel {
     right = "right"
 }
 
+function setLegendPosition(chart: am5.Chart,inputlegend: am5.Legend ,position: ChartInputProps['props']) {
+    // Ensure the chart has a legend
+    if (!inputlegend) {
+      inputlegend = am5.Legend.new(chart.root, {});
+    }
+  
+    let legend = inputlegend;
+  
+    // Reset layout and alignment defaults
+    legend.setAll({
+      layout: chart.root.horizontalLayout, // Default layout
+      centerX: am5.percent(50),
+      centerY: am5.percent(50),
+      x: am5.percent(50),
+      y: am5.percent(50),
+    });
+  
+    switch (position.legendPosition) {
+      case "UpperCenter":
+        legend.setAll({
+          y: am5.percent(0),
+          x: am5.percent(50),
+          centerX: am5.percent(50),
+          layout: chart.root.horizontalLayout,
+        });
+        break;
+      case "BottomCenter":
+        legend.setAll({
+          y: am5.percent(100),
+          x: am5.percent(50),
+          centerX: am5.percent(50),
+          layout: chart.root.horizontalLayout,
+        });
+        break;
+      case "MiddleLeft":
+        legend.setAll({
+          x: am5.percent(0),
+          y: am5.percent(50),
+          centerY: am5.percent(50),
+          layout: chart.root.verticalLayout,
+        });
+        chart.set("paddingLeft", 100);
+        break;
+      case "MiddleRight":
+        legend.setAll({
+          x: am5.percent(100),
+          y: am5.percent(50),
+          centerY: am5.percent(50),
+          layout: chart.root.verticalLayout,
+        });
+        chart.set("paddingRight", 100);
+        break;
+      case "UpperLeft":
+        legend.setAll({
+          x: am5.percent(0),
+          y: am5.percent(0),
+          layout: chart.root.horizontalLayout,
+        });
+        chart.set("paddingLeft", 100);
+        break;
+      case "UpperRight":
+        legend.setAll({
+          x: am5.percent(100),
+          y: am5.percent(0),
+          layout: chart.root.horizontalLayout,
+        });
+        chart.set("paddingRight", 100);
+        break;
+      case "BottomLeft":
+        legend.setAll({
+          x: am5.percent(0),
+          y: am5.percent(100),
+          layout: chart.root.horizontalLayout,
+        });
+        chart.set("paddingLeft", 100);
+        break;
+      case "BottomRight":
+        legend.setAll({
+          x: am5.percent(100),
+          y: am5.percent(100),
+          layout: chart.root.horizontalLayout,
+        });
+        chart.set("paddingRight", 100);
+        
+        break;
+      default:
+        console.warn("Invalid position. Use: top, bottom, left, right, top-left, top-right, bottom-left, bottom-right.");
+    }
+    chart.children.push(legend);
+  }
 
 function Chart({ dataJson, series, props, chartHeight, chartWidth }: ChartInputProps): ReactElement {
-console.log(dataJson);
-console.log(series);
+    console.log(dataJson);
+    console.log(series);
     let nameChart = Math.random().toString(36).slice(2);
     useEffect(() => {
         // Create root element
@@ -57,12 +151,11 @@ console.log(series);
 
         // Add legend
         // https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
-        let legend = chart.children.push(
-            am5.Legend.new(root, {
-                centerX: am5.p50,
-                x: am5.p50
-            })
-        );
+
+        let legend = am5.Legend.new(root, {});
+        chart.children.push(legend);
+
+
 
         // Create axes
         // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
@@ -124,14 +217,13 @@ console.log(series);
             fill: labelSetting.colorLabel,
             rotation: labelSetting.rotationLabel
         });
-        console.log("xRendere")
 
         let xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
             categoryField: "category",
             renderer: xRenderer,
             tooltip: am5.Tooltip.new(root, {})
         }));
-        console.log("xAxis")
+
 
 
         xRenderer.grid.template.setAll({
@@ -139,28 +231,73 @@ console.log(series);
         })
 
         xAxis.data.setAll(dataJson);
-        console.log("xsetData")
+
+        var yRenderer = am5xy.AxisRendererY.new(root, {
+            strokeOpacity: 0,
+        })
+        yRenderer.labels.template.setAll({
+            fill: am5.color(props.labelColorY.value?.toString()!),
+        });
 
 
-        let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-            renderer: am5xy.AxisRendererY.new(root, {
-                strokeOpacity: 0.1
+        // Create Y-axis
+        let yAxis = chart.yAxes.push(
+            am5xy.ValueAxis.new(root, {
+                renderer: yRenderer,
             })
-        }));
-        console.log("yAxis")
+        );
 
 
 
         // Add series
         // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-        function makeSeries(name:string, fieldName:string) {
-            let series = chart.series.push(am5xy.ColumnSeries.new(root, {
+        function makeSeries(serieInformation: ChartInputProps['series'][number]) {
+            const {
+                name,
+                displayname: fieldName,
+                color,
+                strokeColor
+            } = serieInformation;
+
+            var columnSerie = am5xy.ColumnSeries.new(root, {
                 name: name,
                 xAxis: xAxis,
                 yAxis: yAxis,
                 valueYField: fieldName,
-                categoryXField: "category"
-            }));
+                categoryXField: "category",
+                tooltip: props.tooltipActivation ? am5.Tooltip.new(root, {
+                    labelText: "{valueY}"
+                }) : undefined,
+                fill: am5.color(color),
+                stroke: am5.color(strokeColor)
+            });
+            let series = chart.series.push(
+                columnSerie
+            );
+
+
+            series.columns.template.setAll({
+                cornerRadiusTL: 5,
+                cornerRadiusTR: 5,
+                strokeOpacity: 0,
+                shadowOpacity: 0.1,
+                shadowOffsetX: 2,
+                shadowOffsetY: 2,
+                shadowBlur: 1,
+                strokeWidth: 2,
+                stroke: am5.color(0xffffff),
+                shadowColor: am5.color(0x000000),
+                cursorOverStyle: "pointer"
+            });
+
+            series.columns.template.states.create("hover", {
+                shadowOpacity: 1,
+                shadowBlur: 10,
+                cornerRadiusTL: 5,
+                cornerRadiusTR: 5
+            })
+
+
 
             series.columns.template.setAll({
                 tooltipText: "{name}, {valueY}",
@@ -171,11 +308,17 @@ console.log(series);
 
             series.columns.template.events.on("click", function (event) {
                 const column_clicked = event.target.dataItem?.dataContext as DataJson;
-                console.info(event);
-                console.info(column_clicked);
-                console.info(column_clicked[event.target.dataItem?.component.name])
-                console.info(props.seriesList.find((x) => x.seriesName.value == column_clicked[event.target.dataItem?.component._settings.name]));
-                
+                const mxseries = props.seriesList.find((x) => x.seriesName.value?.toString() == fieldName);
+                const mxobject = mxseries?.dataList.items?.find(x => mxseries.category?.get(x).value?.toString() === column_clicked.category)
+                if (!mxobject) {
+                    console.error('[SeriesChart] Click object not found');
+                    return;
+                }
+
+                const onclickhandler = mxseries?.columnClick?.get(mxobject);
+                if (onclickhandler?.canExecute || !onclickhandler?.isExecuting) {
+                    onclickhandler?.execute();
+                }
                 //i.columnClick?.get(i?.dataList.items?.find((x)=> i.category?.get(x).value == ).execute();
             });
 
@@ -198,19 +341,21 @@ console.log(series);
                     })
                 });
             });
-
             legend.data.push(series);
         }
 
         series.forEach(element => {
-            makeSeries(element.displayname, element.name)
+            makeSeries(element)
         });
-        
+
+        setLegendPosition(chart,legend, props);
+
+
 
         // Make stuff animate on load
         // https://www.amcharts.com/docs/v5/concepts/animations/
         chart.appear(1000, 100);
-        return () => {root.dispose(); legend.dispose()};
+        return () => { root.dispose();legend.dispose() };
     }, []);
 
 

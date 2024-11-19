@@ -37,6 +37,18 @@
                             <returnType type="String"/>
                         </property>
                     </propertyGroup>
+                    <propertyGroup caption="Styling">
+                        <property key="columnColor" type="expression">
+                            <caption>Column color</caption>
+                            <description>Define the color of the columns</description>
+                            <returnType type="String"/>
+                        </property>
+                        <property key="strokeColor" type="expression">
+                            <caption>Stroke color</caption>
+                            <description>Define the color of the strokes of the columns</description>
+                            <returnType type="String"/>
+                        </property>
+                    </propertyGroup>
                     <propertyGroup caption="Actions">
                         <property key="columnClick" type="action" dataSource="dataList">
                             <caption>On Click Column Action</caption>
@@ -75,16 +87,6 @@
                 <caption>Height points</caption>
                 <description>Select the height points based on previous selection</description>
             </property>
-            <property key="columnColor" type="expression">
-                <caption>Column color</caption>
-                <description>Define the color of the columns</description>
-                <returnType type="String"/>
-            </property>
-            <property key="strokeColor" type="expression">
-                <caption>Stroke color</caption>
-                <description>Define the color of the strokes of the columns</description>
-                <returnType type="String"/>
-            </property>
             <property key="labelColorX" type="expression">
                 <caption>Labels X Axis color</caption>
                 <description>Define the color of the labels on X axis</description>
@@ -114,7 +116,24 @@
                     <enumerationValue key="right">Right</enumerationValue>
                 </enumerationValues>
             </property>
+            <property key="tooltipActivation" type="boolean" defaultValue="true">
+                <caption>Tooltip</caption>
+                <description>Define if the tooltip has to shown on the columns</description>
+            </property>
+            <property key="legendPosition" type="enumeration" defaultValue="BottomCenter">
+                <caption>Legend Position</caption>
+                <description>Define the legend around the chart</description>
+                <enumerationValues>
+                    <enumerationValue key="UpperLeft">Upper Left</enumerationValue>
+                    <enumerationValue key="UpperCenter">Upper Center</enumerationValue>
+                    <enumerationValue key="UpperRight">Upper Right</enumerationValue>
+                    <enumerationValue key="MiddleRight">Middle Right</enumerationValue>
+                    <enumerationValue key="MiddleLeft">Middle Left</enumerationValue>
+                    <enumerationValue key="BottomLeft">Bottom Left</enumerationValue>
+                    <enumerationValue key="BottomCenter">Bottom Center</enumerationValue>
+                    <enumerationValue key="BottomRight">Bottom Right</enumerationValue>
+                </enumerationValues>
+            </property>
         </propertyGroup>
-        
     </properties>
 </widget>

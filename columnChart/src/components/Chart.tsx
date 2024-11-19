@@ -206,6 +206,12 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
         let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {behavior: "zoomX"}));
         cursor.lineY.set("visible", false);
         cursor.lineX.set("visible", false);
+
+        if(props.sliderActivation){
+            chart.set("scrollbarX", am5.Scrollbar.new(root, {
+                orientation: "horizontal"
+            }));
+        }
         
 
     return () => {root.dispose();};
