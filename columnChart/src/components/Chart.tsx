@@ -208,9 +208,12 @@ function Chart({ dataJson, chartHeight, chartWidth, props }: ChartInputProps): R
         cursor.lineX.set("visible", false);
 
         if(props.sliderActivation){
-            chart.set("scrollbarX", am5.Scrollbar.new(root, {
-                orientation: "horizontal"
+            var scrollbarX = chart.set("scrollbarX", am5.Scrollbar.new(root, {
+                orientation: "horizontal",
+                maxHeight: 3,
             }));
+            scrollbarX.startGrip.set("scale", 0.3);
+            scrollbarX.endGrip.set("scale", 0.3);
         }
         
 

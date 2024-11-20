@@ -120,6 +120,7 @@ function setLegendPosition(chart: am5.Chart,inputlegend: am5.Legend ,position: C
       default:
         console.warn("Invalid position. Use: top, bottom, left, right, top-left, top-right, bottom-left, bottom-right.");
     }
+    legend.labels.template.setAll({fill: am5.color(position.labelColorX.value?.toString()!)})
     chart.children.push(legend);
   }
 

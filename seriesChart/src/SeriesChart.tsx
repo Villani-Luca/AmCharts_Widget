@@ -60,5 +60,5 @@ export function SeriesChart(props: SeriesChartContainerProps): ReactElement {
    if(keys === seriesList.length + 1)
      return <Chart props={props} dataJson={arr} series={seriesname} chartHeight={props.heightChart} chartWidth={props.widthChart}/> 
 
-   return <div>CIAO</div>;
+   return <div>Error</div>;
 }
