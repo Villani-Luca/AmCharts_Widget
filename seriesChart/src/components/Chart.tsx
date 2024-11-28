@@ -47,6 +47,7 @@ function setLegendPosition(chart: am5.Chart,inputlegend: am5.Legend ,position: C
       centerY: am5.percent(50),
       x: am5.percent(50),
       y: am5.percent(50),
+      position: "absolute",
     });
   
     switch (position.legendPosition) {
@@ -57,6 +58,8 @@ function setLegendPosition(chart: am5.Chart,inputlegend: am5.Legend ,position: C
           centerX: am5.percent(50),
           layout: chart.root.horizontalLayout,
         });
+        chart.set("x", 0);
+        chart.set("y",0);
         break;
       case "BottomCenter":
         legend.setAll({
@@ -74,6 +77,8 @@ function setLegendPosition(chart: am5.Chart,inputlegend: am5.Legend ,position: C
           layout: chart.root.verticalLayout,
         });
         chart.set("paddingLeft", 100);
+        chart.set("x", 0);
+        chart.set("y",0);
         break;
       case "MiddleRight":
         legend.setAll({
@@ -83,6 +88,8 @@ function setLegendPosition(chart: am5.Chart,inputlegend: am5.Legend ,position: C
           layout: chart.root.verticalLayout,
         });
         chart.set("paddingRight", 100);
+        chart.set("x", 0);
+        chart.set("y",0);
         break;
       case "UpperLeft":
         legend.setAll({
@@ -91,6 +98,8 @@ function setLegendPosition(chart: am5.Chart,inputlegend: am5.Legend ,position: C
           layout: chart.root.horizontalLayout,
         });
         chart.set("paddingLeft", 100);
+        chart.set("x", 0);
+        chart.set("y",0);
         break;
       case "UpperRight":
         legend.setAll({
@@ -99,6 +108,8 @@ function setLegendPosition(chart: am5.Chart,inputlegend: am5.Legend ,position: C
           layout: chart.root.horizontalLayout,
         });
         chart.set("paddingRight", 100);
+        chart.set("x", 0);
+        chart.set("y",0);
         break;
       case "BottomLeft":
         legend.setAll({
@@ -118,7 +129,7 @@ function setLegendPosition(chart: am5.Chart,inputlegend: am5.Legend ,position: C
         
         break;
       default:
-        console.warn("Invalid position. Use: top, bottom, left, right, top-left, top-right, bottom-left, bottom-right.");
+        console.warn("Invalid position. Use: UpperCenter, BottomCenter, MiddleLeft, MiddleRight, UpperLeft, UpperRight, BottomLeft, BottomRight.");
     }
     legend.labels.template.setAll({fill: am5.color(position.labelColorX.value?.toString()!)})
     chart.children.push(legend);
@@ -147,7 +158,8 @@ function Chart({ dataJson, series, props, chartHeight, chartWidth }: ChartInputP
             paddingLeft: 0,
             wheelX: "panX",
             wheelY: "zoomX",
-            layout: root.verticalLayout
+            layout: root.verticalLayout,
+
         }));
 
         // Add legend
