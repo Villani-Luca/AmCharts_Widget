@@ -158,6 +158,7 @@ function Chart({ dataJson, series, props, chartHeight, chartWidth }: ChartInputP
             paddingLeft: 0,
             wheelX: "panX",
             wheelY: "zoomX",
+            pinchZoomX: false,
             layout: root.verticalLayout,
 
         }));
@@ -319,6 +320,10 @@ function Chart({ dataJson, series, props, chartHeight, chartWidth }: ChartInputP
                 strokeOpacity: 0
             });
 
+            let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {behavior: "zoomX"}));
+            cursor.lineY.set("visible", false);
+            cursor.lineX.set("visible", false);
+            
             series.columns.template.events.on("click", function (event) {
                 const column_clicked = event.target.dataItem?.dataContext as DataJson;
                 const mxseries = props.seriesList.find((x) => x.seriesName.value?.toString() == fieldName);
